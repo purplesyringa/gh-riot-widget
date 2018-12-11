@@ -16,7 +16,13 @@
     async function handleIssue(id) {
         const res = await fetch(`https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues/${id}`);
         const html = await res.text();
-        const startHtml = html.match(/<task-lists disabled sortable>([\s\S]*?)<\/task-lists>/)[1];
+
+        let startHtml = html.match(/<task-lists disabled sortable>([\s\S]*?)<\/task-lists>/)[1];
+        const node = document.createElement("div");
+        node.innerHTML = startHtml;
+        startHtml = node.querySelector(".comment-body").innerHTML;
+        startHtml = startHtml.substr(0, 300) + "...";
+
         issues[id] = {startHtml};
 
         updateIssueList();
