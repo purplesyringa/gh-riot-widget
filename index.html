@@ -1,13 +1,13 @@
+<div class="issues">
+</div>
+
 <script>
-    let handledIssues = {};
+    let issues = {};
     async function update() {
         const res = await fetch("https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues");
         const html = await res.text();
         html.replace(/<div id="issue_(\d+)/g, (_, id) => {
-            if(!handledIssues[id]) {
-                handledIssues[id] = true;
-                handleIssue(id);
-            }
+            handleIssue(id);
         });
     }
     
@@ -15,10 +15,21 @@
         const res = await fetch(`https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues/${id}`);
         const html = await res.text();
         const startHtml = html.match(/<task-lists disabled sortable>([\s\S]*?)<\/task-lists>/)[1];
-        const node = document.createElement("div");
-        node.innerHTML = `<h1>#${id}</h1>${startHtml}`;
-        node.className = "issue";
-        document.querySelector(".issues").appendChild(node);
+        issues[id] = {startHtml};
+
+        updateIssueList();
+    }
+    
+    function updateIssueList() {
+        const issuesNode = document.querySelector(".issues");
+        issuesNode.innerHTML = "";
+        
+        for(const id of Object.keys(issues).sort((a, b) => b - a)) {
+            const node = document.createElement("div");
+            node.innerHTML = `<h1>#${id}</h1>${issues[id].startHtml}`;
+            node.className = "issue";
+            issuesNode.appendChild(node);
+        }
     }
   
     update();
