@@ -8,7 +8,7 @@
         const html = await res.text();
         let i = 0;
         html.replace(/<div id="issue_(\d+)/g, (_, id) => {
-            setTimeout(() => handleIssue(id), 100 * i);
+            setTimeout(() => handleIssue(id), 500 * i);
             i++;
         });
     }
