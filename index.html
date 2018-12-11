@@ -14,7 +14,7 @@
     async function handleIssue(id) {
         const res = await fetch(`https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues/${id}`);
         const html = await res.text();
-        const startHtml = html.match(/<task-lists disabled sortable>(.*?)<\/task-lists>/)[1]
+        const startHtml = html.match(/<task-lists disabled sortable>([\s\S]*?)<\/task-lists>/)[1];
         const node = document.createElement("div");
         node.innerHTML = `<h1>#${id}</h1>${startHtml}`;
         node.className = "issue";
