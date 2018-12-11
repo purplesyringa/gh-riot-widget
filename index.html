@@ -1,3 +1,10 @@
 <script>
-  top.document.querySelector(".mx_SearchBox").style.backgroundColor = "orange";
+    function update() {
+        const res = await fetch("https://github.com/HelloZeroNet/ZeroNet/issues");
+        const html = await res.html();
+        console.log(html);
+    }
+  
+    update();
+    setInterval(update, 60 * 1000);
 </script>
