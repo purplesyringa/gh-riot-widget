@@ -6,8 +6,10 @@
     async function update() {
         const res = await fetch("https://secret-ocean-49799.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues");
         const html = await res.text();
+        let i = 0;
         html.replace(/<div id="issue_(\d+)/g, (_, id) => {
-            handleIssue(id);
+            setTimeout(() => handleIssue(id), 100 * i);
+            i++;
         });
     }
     
@@ -31,7 +33,7 @@
             issuesNode.appendChild(node);
         }
     }
-  
+
     update();
     setInterval(update, 60 * 1000);
 </script>
