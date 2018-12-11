@@ -4,7 +4,7 @@
 <script>
     let issues = {};
     async function update() {
-        const res = await fetch("https://secret-ocean-49799.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues");
+        const res = await fetch("https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues");
         const html = await res.text();
         let i = 0;
         html.replace(/<div id="issue_(\d+)/g, (_, id) => {
@@ -14,7 +14,7 @@
     }
     
     async function handleIssue(id) {
-        const res = await fetch(`https://secret-ocean-49799.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues/${id}`);
+        const res = await fetch(`https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues/${id}`);
         const html = await res.text();
         const startHtml = html.match(/<task-lists disabled sortable>([\s\S]*?)<\/task-lists>/)[1];
         issues[id] = {startHtml};
