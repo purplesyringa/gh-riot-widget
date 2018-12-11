@@ -3,7 +3,7 @@
     async function update() {
         const res = await fetch("https://cors-anywhere.herokuapp.com/https://github.com/HelloZeroNet/ZeroNet/issues");
         const html = await res.text();
-        html.replace(/<div id="issue_(\d+?)/g, (_, id) => {
+        html.replace(/<div id="issue_(\d+)/g, (_, id) => {
             if(!handledIssues[id]) {
                 handledIssues[id] = true;
                 handleIssue(id);
