@@ -1,5 +1,5 @@
 <script>
-    function update() {
+    async function update() {
         const res = await fetch("https://github.com/HelloZeroNet/ZeroNet/issues");
         const html = await res.html();
         console.log(html);
